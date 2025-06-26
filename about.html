@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Shey's Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    @keyframes clockGlow {
+      0%, 100% { box-shadow: 0 1px 8px #ede9fe, 0 0 8px #ffd1e7; }
+      50% { box-shadow: 0 2px 16px #ffd1e7, 0 0 16px #a855f7; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Compact Marquee and Clock Section -->
+  <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: linear-gradient(90deg, #c073b1 0%, #a855f7 100%); backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 18px;">
+      <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: #4c1d95; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
+      <div style="display: flex; align-items: center; gap: 8px; height: 44px;">
+        <span style="font-size: 18px; color: #7c3aed; font-weight: 700;">🕐</span>
+        <span id="marquee-clock" aria-label="Current Manila Time" title="" style="font-size: 17px; font-weight: 700; color: #fff; font-family: 'Courier New', monospace; background: linear-gradient(45deg, #fff, #c073b1, #a855f7, #ffd1e7); -webkit-background-clip: text; -webkit-text-fill-color: white; background-clip: text; padding: 3px 12px; border-radius: 7px; border: 1.5px solid #ede9fe; line-height: 1; display: inline-block; box-shadow: 0 1px 12px #ede9fe; letter-spacing: 1px; background-size: 200% 200%; animation: gradientMove 2s linear infinite alternate, clockGlow 1.5s ease-in-out infinite alternate;"></span>
+      </div>
+    </div>
+  </div>
+  <header>
+    <div class="header-top">
+      <img src="assets/profile_sherry.jpg" alt="Profile Picture" class="profile-img"> 
+      <h1>Shey's Shop</h1>
+      <div class="auth-buttons">
+        <button id="signupBtn"><i class="fas fa-user-plus"></i> Sign Up</button>
+        <button id="loginBtn"><i class="fas fa-user"></i> Login</button>
+        <button id="logoutBtn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Log out</button>
+      </div>
+    </div>
+    <nav class="main-nav" style="background: #ffd1e7; border-radius: 12px; box-shadow: 0 4px 18px rgba(192,115,177,0.13); margin-bottom: 32px;">
+      <ul style="list-style:none; margin:0; padding:0 30px; display:flex; gap:30px; align-items:center; min-height:56px;">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#products" class="nav-link">Products</a></li>
+        <li><a href="my-projects.html" class="nav-link">My Projects</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeLogin">&times;</span>
+      <h2><i class="fas fa-user"></i> Login</h2>
+      <form id="loginForm">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+    </div>
+  </div>
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeSignup">&times;</span>
+      <h2><i class="fas fa-user-plus"></i> Sign Up</h2>
+      <form id="signupFormModal">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+    </div>
+  </div>
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closelogout">&times;</span>
+      <h2><i class="fas fa-question-circle"></i> Are You sure to Log Out?</h2>
+      <div class="modal-buttons">
+        <button id="confirmLogout">Yes, Log out</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <main class="about-main">
+    <section class="about-hero">
+      <div class="container">
+      <h2>About Shey's Shop</h2>
+        <div class="about-verse-plain">You are fearfully and wonderfully made – Psalm 139:14</div>
+      </div>
+    </section>
+    <section class="about-tiles-section">
+      <div class="container">
+        <div class="about-tiles-grid">
+          <div class="about-tile mission-tile">
+            <div class="tile-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3>Our Mission</h3>
+            <p>To empower every individual by providing high-quality beauty and skincare products that deliver innovative solutions. We are committed to fostering confidence and well-being in our customers, helping them embrace their natural beauty with pride and joy.</p>
+          </div>
+          <div class="about-tile vision-tile">
+            <div class="tile-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h3>Our Vision</h3>
+            <p>We aspire to be a leading destination for beauty and skincare, renowned for our exceptional product quality and groundbreaking solutions. Our goal is to inspire consumers to embrace their natural beauty and feel empowered, confident, and radiant from the inside out.</p>
+          </div>
+          <div class="about-tile journey-tile">
+            <div class="tile-icon">
+              <i class="fas fa-road"></i>
+            </div>
+            <h3>Our Journey</h3>
+            <p>Shey's Shop started as a humble dream, born out of a desire to offer something more than just skincare and beauty products. Through faith, perseverance, and unwavering commitment to quality, we've overcome every obstacle to become what we are today.</p>
+          </div>
+          <div class="about-tile values-tile">
+            <div class="tile-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Core Values</h3>
+            <ul class="values-list">
+              <li><i class="fas fa-check"></i> Authenticity & Natural Beauty</li>
+              <li><i class="fas fa-check"></i> Positive Community Impact</li>
+              <li><i class="fas fa-check"></i> Emotional Resonance</li>
+              <li><i class="fas fa-check"></i> Quality & Innovation</li>
+            </ul>
+          </div>
+          <div class="about-tile authenticity-tile">
+            <div class="tile-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>Authenticity</h3>
+            <p>At Shey's Shop, authenticity is at the heart of everything we do. We believe that each person is fearfully and wonderfully made. We offer products designed to help you embrace your natural beauty and care for yourself in a way that feels true to who you are.</p>
+          </div>
+          <div class="about-tile impact-tile">
+            <div class="tile-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Positive Impact</h3>
+            <p>Our journey has always been about more than just selling products; it's about making a difference. We empower individuals to feel more confident, radiant, and true to themselves while giving back to our community.</p>
+          </div>
+          <div class="about-tile emotional-tile">
+            <div class="tile-icon">
+              <i class="fas fa-smile"></i>
+            </div>
+            <h3>Emotional Resonance</h3>
+            <p>Every product, every interaction, every moment at Shey's Shop is intended to uplift and inspire. We want our customers to feel joy, hope, and confidence each time they use our products.</p>
+          </div>
+          <div class="about-tile dream-tile">
+            <div class="tile-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h3>A Dream Realized</h3>
+            <p>Shey's Shop is a testament to the power of hard work, perseverance, and believing in your dream. The true success lies in the difference we make in the lives of those who trust us with their beauty and skincare needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="about-story-section">
+      <div class="container">
+        <div class="story-content">
+          <h2>The Journey of Shey's Shop</h2>
+          <div class="story-text">
+            <p>Shey's Shop started as a humble dream, born out of a desire to offer something more than just skincare and beauty products. In the beginning, we faced the challenges that come with being a small business – competing against larger, established brands, and navigating financial hardships. But through it all, I remained steadfast in my belief that quality, kindness, and authenticity would always find a way.</p>
+            <p>With a heart full of faith, a spirit of perseverance, and an unwavering commitment to providing innovative, high-quality products, I overcame every obstacle. It wasn't easy, but every setback was a chance to learn, grow, and push forward. Through hard work and determination, Shey's Shop has flourished, not just in profits, but in the positive impact we've made in the lives of our customers and the community.</p>
+            <p>I have learned that success is not always measured in numbers. The true success of Shey's Shop lies in the difference we make in the lives of those who trust us with their beauty and skincare needs. It's in the smiles we see from our customers when they feel seen and valued. It's in the way we've impacted our community, inspiring others to follow their dreams and take care of themselves.</p>
+            <p>Shey's Shop is a testament to the power of hard work, perseverance, and believing in your dream – even when the road gets tough. I am so grateful to have reached this point, and I am excited for the future we're building together.</p>
+            <p class="story-signature">Thank you for being part of this journey, for trusting Shey's Shop to help you embrace your beauty, and for allowing us to make a positive difference in your life.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Shey's Shop</h3>
+          <p>Your destination for premium fashion and lifestyle products.</p>
+          <div class="social-links">
+            <a href="https://web.facebook.com/Sheryhanne143"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/sheryhannie/"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Customer Service</h4>
+          <ul>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <p><i class="fas fa-phone"></i> +63 912 456 7890</p>
+          <p><i class="fas fa-envelope"></i> sherryhanne@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Shey's Shop. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('backToHome').onclick = function() {
+      window.location.href = 'Shery-Website.html';
+    };
+  </script>
+  <script>
+  function animateOnScroll() {
+    document.querySelectorAll('section').forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        section.classList.add('section-animate');
+      }
+    });
+  }
+  window.addEventListener('scroll', animateOnScroll);
+  window.addEventListener('DOMContentLoaded', animateOnScroll);
+  </script>
+  <style>
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  section.section-animate {
+    animation: fadeInUp 0.8s cubic-bezier(.68,-0.55,.27,1.55) both;
+  }
+  body, .about-main, main {
+    padding-top: 56px !important;
+  }
+  </style>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.main-nav a').forEach(function(link) {
+      if (link.textContent.trim() === 'Home') link.setAttribute('href', 'index.html');
+      if (link.textContent.trim() === 'Products') link.setAttribute('href', 'index.html#products');
+      if (link.textContent.trim() === 'About') link.setAttribute('href', 'about.html');
+    });
+  });
+  </script>
+  <script>
+    function updateClocks() {
+      const now = new Date();
+      const manila = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+      function format12h(date) {
+        let h = date.getHours();
+        const m = date.getMinutes().toString().padStart(2, '0');
+        const s = date.getSeconds().toString().padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12;
+        h = h ? h : 12;
+        return `${h}:${m}:${s} ${ampm}`;
+      }
+      const clockManila = document.getElementById('clock-manila');
+      if (clockManila) {
+        clockManila.textContent = `Manila: ${format12h(manila)}`;
+      }
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+    function updateMarqueeClock() {
+      const now = new Date();
+      const manila = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+      let h = manila.getHours();
+      const m = manila.getMinutes().toString().padStart(2, '0');
+      const s = manila.getSeconds().toString().padStart(2, '0');
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12;
+      h = h ? h : 12;
+      const marqueeClock = document.getElementById('marquee-clock');
+      if (marqueeClock) {
+        marqueeClock.textContent = `Manila: ${h}:${m}:${s} ${ampm}`;
+      }
+    }
+    setInterval(updateMarqueeClock, 1000);
+    updateMarqueeClock();
+  </script>
+
+  <!-- Cursor Hearts Effect JavaScript -->
+  <script>
+class TrailingHearts {
+  constructor() {
+    this.hearts = [];
+    this.maxHearts = 15;
+    this.colors = [
+      '#ff6b9d', '#ff9ecd', '#ffb3d9', '#ffcce6',
+      '#f87171', '#fbbf24', '#34d399', '#60a5fa', '#a78bfa'
+    ];
+    this.lastMouseX = 0;
+    this.lastMouseY = 0;
+    this.mousePositions = [];
+    this.maxPositions = 10;
+    this.addListeners();
+  }
+
+  addListeners() {
+    window.addEventListener('mousemove', (e) => this.trackMouse(e));
+    window.addEventListener('click', (e) => this.createHeartBurst(e));
+  }
+
+  trackMouse(e) {
+    if (window.innerWidth < 768) return;
+    
+    this.lastMouseX = e.clientX;
+    this.lastMouseY = e.clientY;
+    
+    this.mousePositions.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+    
+    if (this.mousePositions.length > this.maxPositions) {
+      this.mousePositions.shift();
+    }
+    
+    if (Math.random() < 0.3) {
+      this.createTrailingHeart();
+    }
+  }
+
+  createTrailingHeart() {
+    if (this.hearts.length >= this.maxHearts) {
+      const oldHeart = this.hearts.shift();
+      if (oldHeart && oldHeart.parentNode) oldHeart.parentNode.removeChild(oldHeart);
+    }
+
+    const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+    const heart = document.createElement('div');
+    heart.className = 'trailing-heart';
+    
+    const delayIndex = Math.max(0, this.mousePositions.length - 3);
+    const position = this.mousePositions[delayIndex] || { x: this.lastMouseX, y: this.lastMouseY };
+    
+    heart.style.left = position.x + 'px';
+    heart.style.top = position.y + 'px';
+    heart.style.position = 'fixed';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = 9999;
+    heart.style.opacity = '0.8';
+    heart.style.transition = 'opacity 2s ease-out, transform 3s ease-out';
+    
+    const size = 14 + Math.random() * 8;
+    heart.innerHTML = `<svg viewBox="0 0 32 29" width="${size}" height="${size * 0.9}" style="display:block;">
+      <path d="M23.6,2.6c-2.6,0-4.9,1.7-5.6,4.1C16.3,4.3,14,2.6,11.4,2.6C7.3,2.6,4,6,4,10.1c0,7.1,11.2,15.3,11.7,15.7c0.2,0.1,0.5,0.2,0.7,0.2s0.5-0.1,0.7-0.2c0.5-0.4,11.7-8.6,11.7-15.7C28,6,24.7,2.6,23.6,2.6z" fill="${color}"/></svg>`;
+    
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 20;
+    const scale = 0.6 + Math.random() * 0.4;
+    
+    heart.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    document.body.appendChild(heart);
+    this.hearts.push(heart);
+    
+    setTimeout(() => {
+      heart.style.opacity = '0';
+      heart.style.transform += ' translateY(-30px) scale(0.3)';
+      setTimeout(() => {
+        if (heart.parentNode) heart.parentNode.removeChild(heart);
+        const idx = this.hearts.indexOf(heart);
+        if (idx > -1) this.hearts.splice(idx, 1);
+      }, 2000);
+    }, 1000 + Math.random() * 1000);
+  }
+
+  createHeartBurst(e) {
+    if (window.innerWidth < 768) return;
+    
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        const heart = document.createElement('div');
+        heart.className = 'burst-heart';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.position = 'fixed';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = 9999;
+        heart.style.opacity = '0.9';
+        heart.style.transition = 'opacity 2s ease-out, transform 2.5s ease-out';
+        
+        const size = 16 + Math.random() * 6;
+        heart.innerHTML = `<svg viewBox="0 0 32 29" width="${size}" height="${size * 0.9}" style="display:block;">
+          <path d="M23.6,2.6c-2.6,0-4.9,1.7-5.6,4.1C16.3,4.3,14,2.6,11.4,2.6C7.3,2.6,4,6,4,10.1c0,7.1,11.2,15.3,11.7,15.7c0.2,0.1,0.5,0.2,0.7,0.2s0.5-0.1,0.7-0.2c0.5-0.4,11.7-8.6,11.7-15.7C28,6,24.7,2.6,23.6,2.6z" fill="${color}"/></svg>`;
+        
+        const angle = (i / 8) * 2 * Math.PI;
+        const distance = 25 + Math.random() * 15;
+        const offsetX = Math.cos(angle) * distance;
+        const offsetY = Math.sin(angle) * distance;
+        const scale = 0.8 + Math.random() * 0.4;
+        
+        heart.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        document.body.appendChild(heart);
+        this.hearts.push(heart);
+        
+        setTimeout(() => {
+          heart.style.opacity = '0';
+          heart.style.transform += ' translateY(-20px) scale(0.2)';
+          setTimeout(() => {
+            if (heart.parentNode) heart.parentNode.removeChild(heart);
+            const idx = this.hearts.indexOf(heart);
+            if (idx > -1) this.hearts.splice(idx, 1);
+          }, 2000);
+        }, 1500 + Math.random() * 500);
+      }, i * 50);
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new TrailingHearts();
+});
+  </script>
+  <style>
+    .main-nav {
+      margin-top: 0;
+    }
+    .main-nav .nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 500;
+      padding: 12px 0;
+      display: block;
+      border-bottom: 2.5px solid transparent;
+      transition: color 0.2s, border-bottom 0.2s;
+    }
+    .main-nav .nav-link:hover {
+      color: #ffe082;
+      border-bottom: 2.5px solid #ffe082;
+    }
+    .main-nav .nav-link.active {
+      color: #ffe082;
+      border-bottom: 2.5px solid #ffe082;
+      font-weight: 700;
+    }
+    @media (max-width: 700px) {
+      .main-nav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 10px;
+      }
+      .main-nav .nav-link {
+        padding: 10px 0;
+        font-size: 1em;
+      }
+    }
+  </style>
+</body>
+</html> 

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign Up - Shey's Shop</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Compact Marquee and Clock Section -->
+<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: linear-gradient(90deg, #c073b1 0%, #a855f7 100%); backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
+  <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 18px;">
+    <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: #4c1d95; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
+    <div style="display: flex; align-items: center; gap: 8px; height: 44px;">
+      <span style="font-size: 18px; color: #7c3aed; font-weight: 700;">🕐</span>
+      <span id="marquee-clock" aria-label="Current Manila Time" title="" style="font-size: 17px; font-weight: 700; color: #fff; font-family: 'Courier New', monospace; background: linear-gradient(45deg, #fff, #c073b1, #a855f7, #ffd1e7); -webkit-background-clip: text; -webkit-text-fill-color: white; background-clip: text; padding: 3px 12px; border-radius: 7px; border: 1.5px solid #ede9fe; line-height: 1; display: inline-block; box-shadow: 0 1px 12px #ede9fe; letter-spacing: 1px; background-size: 200% 200%; animation: gradientMove 2s linear infinite alternate, clockGlow 1.5s ease-in-out infinite alternate;"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Add top padding to main content -->
+<style>
+  body, .signup-container, main {
+    padding-top: 56px !important;
+  }
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  @keyframes clockGlow {
+    0%, 100% { box-shadow: 0 1px 8px #ede9fe, 0 0 8px #ffd1e7; }
+    50% { box-shadow: 0 2px 16px #ffd1e7, 0 0 16px #a855f7; }
+  }
+</style>
+
+<header>
+  <div class="header-top">
+    <img src="assets/profile_sherry.jpg" alt="Profile Picture" class="profile-img"> 
+    <h1>Shey's Shop</h1>
+    <div class="auth-buttons">
+      <button id="signupBtn"><i class="fas fa-user-plus"></i> Sign Up</button>
+      <button id="loginBtn"><i class="fas fa-user"></i> Login</button>
+      <button id="logoutBtn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Log out</button>
+    </div>
+  </div>
+  <nav class="main-nav" style="background: linear-gradient(90deg, #c073b1 0%, #a855f7 100%); border-radius: 12px; box-shadow: 0 4px 18px rgba(192,115,177,0.13); margin-bottom: 32px;">
+    <ul style="list-style:none; margin:0; padding:0 30px; display:flex; gap:30px; align-items:center; min-height:56px;">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="index.html#products" class="nav-link">Products</a></li>
+      <li><a href="my-projects.html" class="nav-link">My Projects</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+  <style>
+    .main-nav {
+      margin-top: 0;
+    }
+    .main-nav .nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 500;
+      padding: 12px 0;
+      display: block;
+      border-bottom: 2.5px solid transparent;
+      transition: color 0.2s, border-bottom 0.2s;
+    }
+    .main-nav .nav-link:hover {
+      color: #ffe082;
+      border-bottom: 2.5px solid #ffe082;
+    }
+    .main-nav .nav-link.active {
+      color: #ffe082;
+      border-bottom: 2.5px solid #ffe082;
+      font-weight: 700;
+    }
+    @media (max-width: 700px) {
+      .main-nav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 10px;
+      }
+      .main-nav .nav-link {
+        padding: 10px 0;
+        font-size: 1em;
+      }
+    }
+  </style>
+</header>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeLogin">&times;</span>
+    <h2><i class="fas fa-user"></i> Login</h2>
+    <form id="loginForm">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeSignup">&times;</span>
+    <h2><i class="fas fa-user-plus"></i> Sign Up</h2>
+    <form id="signupFormModal">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <input type="password" placeholder="Confirm Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+  </div>
+</div>
+
+<!-- Log out Modal -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closelogout">&times;</span>
+    <h2><i class="fas fa-question-circle"></i> Are You sure to Log Out?</h2>
+    <div class="modal-buttons">
+      <button id="confirmLogout">Yes, Log out</button>
+      <button id="cancelLogout">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-header">
+      <h2><i class="fas fa-user-plus"></i> Create Your Account</h2>
+      <p>Join Shey's Shop and discover premium fashion & lifestyle products</p>
+    </div>
+    
+    <form id="signupForm" class="signup-form">
+      <div class="form-group">
+        <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+        <input type="text" id="fullName" name="fullName" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password"><i class="fas fa-lock"></i> Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+      </div>
+      
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="terms" required>
+          <span class="checkmark"></span>
+          I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a>
+        </label>
+      </div>
+      
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="newsletter">
+          <span class="checkmark"></span>
+          Subscribe to our newsletter for updates and exclusive offers
+        </label>
+      </div>
+      
+      <button type="submit" class="signup-btn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+    
+    <div class="signup-footer">
+      <p>Already have an account? <a href="Shery-Website.html" class="login-link">Login here</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Clock functionality
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    let period = "AM";
+
+    if (hours >= 12) {
+      period = "PM";
+      if (hours > 12) hours -= 12;
+    }
+
+    if (hours === 0) hours = 12;
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    const dateString = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const timeString = `${hours}:${minutes}:${seconds} ${period}`;
+    const clockElem = document.getElementById('marquee-clock');
+    if (clockElem) {
+      clockElem.textContent = timeString;
+      clockElem.title = dateString;
+    }
+  }
+
+  // Start the clock and update every second
+  updateClock(); // initial call
+  setInterval(updateClock, 1000);
+</script>
+
+<script>
+  // Authentication and menu logic from Shery-Website.html
+  // (copy the full script block from Shery-Website.html, lines 251-629, and replace any old clock or nav scripts)
+</script>
+
+<!-- Cursor Hearts Effect JavaScript -->
+<script>
+class TrailingHearts {
+  constructor() {
+    this.hearts = [];
+    this.maxHearts = 15;
+    this.colors = [
+      '#ff6b9d', '#ff9ecd', '#ffb3d9', '#ffcce6',
+      '#f87171', '#fbbf24', '#34d399', '#60a5fa', '#a78bfa'
+    ];
+    this.lastMouseX = 0;
+    this.lastMouseY = 0;
+    this.mousePositions = [];
+    this.maxPositions = 10;
+    this.addListeners();
+  }
+
+  addListeners() {
+    window.addEventListener('mousemove', (e) => this.trackMouse(e));
+    window.addEventListener('click', (e) => this.createHeartBurst(e));
+  }
+
+  trackMouse(e) {
+    if (window.innerWidth < 768) return;
+    
+    this.lastMouseX = e.clientX;
+    this.lastMouseY = e.clientY;
+    
+    this.mousePositions.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+    
+    if (this.mousePositions.length > this.maxPositions) {
+      this.mousePositions.shift();
+    }
+    
+    if (Math.random() < 0.3) {
+      this.createTrailingHeart();
+    }
+  }
+
+  createTrailingHeart() {
+    if (this.hearts.length >= this.maxHearts) {
+      const oldHeart = this.hearts.shift();
+      if (oldHeart && oldHeart.parentNode) oldHeart.parentNode.removeChild(oldHeart);
+    }
+
+    const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+    const heart = document.createElement('div');
+    heart.className = 'trailing-heart';
+    
+    const delayIndex = Math.max(0, this.mousePositions.length - 3);
+    const position = this.mousePositions[delayIndex] || { x: this.lastMouseX, y: this.lastMouseY };
+    
+    heart.style.left = position.x + 'px';
+    heart.style.top = position.y + 'px';
+    heart.style.position = 'fixed';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = 9999;
+    heart.style.opacity = '0.8';
+    heart.style.transition = 'opacity 2s ease-out, transform 3s ease-out';
+    
+    const size = 14 + Math.random() * 8;
+    heart.innerHTML = `<svg viewBox="0 0 32 29" width="${size}" height="${size * 0.9}" style="display:block;">
+      <path d="M23.6,2.6c-2.6,0-4.9,1.7-5.6,4.1C16.3,4.3,14,2.6,11.4,2.6C7.3,2.6,4,6,4,10.1c0,7.1,11.2,15.3,11.7,15.7c0.2,0.1,0.5,0.2,0.7,0.2s0.5-0.1,0.7-0.2c0.5-0.4,11.7-8.6,11.7-15.7C28,6,24.7,2.6,23.6,2.6z" fill="${color}"/></svg>`;
+    
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 20;
+    const scale = 0.6 + Math.random() * 0.4;
+    
+    heart.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    document.body.appendChild(heart);
+    this.hearts.push(heart);
+    
+    setTimeout(() => {
+      heart.style.opacity = '0';
+      heart.style.transform += ' translateY(-30px) scale(0.3)';
+      setTimeout(() => {
+        if (heart.parentNode) heart.parentNode.removeChild(heart);
+        const idx = this.hearts.indexOf(heart);
+        if (idx > -1) this.hearts.splice(idx, 1);
+      }, 2000);
+    }, 1000 + Math.random() * 1000);
+  }
+
+  createHeartBurst(e) {
+    if (window.innerWidth < 768) return;
+    
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        const heart = document.createElement('div');
+        heart.className = 'burst-heart';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.position = 'fixed';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = 9999;
+        heart.style.opacity = '0.9';
+        heart.style.transition = 'opacity 2s ease-out, transform 2.5s ease-out';
+        
+        const size = 16 + Math.random() * 6;
+        heart.innerHTML = `<svg viewBox="0 0 32 29" width="${size}" height="${size * 0.9}" style="display:block;">
+          <path d="M23.6,2.6c-2.6,0-4.9,1.7-5.6,4.1C16.3,4.3,14,2.6,11.4,2.6C7.3,2.6,4,6,4,10.1c0,7.1,11.2,15.3,11.7,15.7c0.2,0.1,0.5,0.2,0.7,0.2s0.5-0.1,0.7-0.2c0.5-0.4,11.7-8.6,11.7-15.7C28,6,24.7,2.6,23.6,2.6z" fill="${color}"/></svg>`;
+        
+        const angle = (i / 8) * 2 * Math.PI;
+        const distance = 25 + Math.random() * 15;
+        const offsetX = Math.cos(angle) * distance;
+        const offsetY = Math.sin(angle) * distance;
+        const scale = 0.8 + Math.random() * 0.4;
+        
+        heart.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        document.body.appendChild(heart);
+        this.hearts.push(heart);
+        
+        setTimeout(() => {
+          heart.style.opacity = '0';
+          heart.style.transform += ' translateY(-20px) scale(0.2)';
+          setTimeout(() => {
+            if (heart.parentNode) heart.parentNode.removeChild(heart);
+            const idx = this.hearts.indexOf(heart);
+            if (idx > -1) this.hearts.splice(idx, 1);
+          }, 2000);
+        }, 1500 + Math.random() * 500);
+      }, i * 50);
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new TrailingHearts();
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.main-nav a').forEach(function(link) {
+    if (link.textContent.trim() === 'Home') link.setAttribute('href', 'index.html');
+    if (link.textContent.trim() === 'Products') link.setAttribute('href', 'index.html#products');
+    if (link.textContent.trim() === 'About') link.setAttribute('href', 'about.html');
+  });
+});
+</script>
+
+</body>
+</html>
