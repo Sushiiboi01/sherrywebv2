@@ -14,9 +14,9 @@
 <body>
 
 <!-- Compact Marquee and Clock Section -->
-<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: linear-gradient(90deg, #c073b1 0%, #a855f7 100%); backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
+<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: #c073b1; backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
   <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 18px;">
-    <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: #4c1d95; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
+    <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: white; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
     <div style="display: flex; align-items: center; gap: 8px; height: 44px;">
       <span style="font-size: 18px; color: #7c3aed; font-weight: 700;">🕐</span>
       <span id="marquee-clock" aria-label="Current Manila Time" title="" style="font-size: 17px; font-weight: 700; color: #fff; font-family: 'Courier New', monospace; background: linear-gradient(45deg, #fff, #c073b1, #a855f7, #ffd1e7); -webkit-background-clip: text; -webkit-text-fill-color: white; background-clip: text; padding: 3px 12px; border-radius: 7px; border: 1.5px solid #ede9fe; line-height: 1; display: inline-block; box-shadow: 0 1px 12px #ede9fe; letter-spacing: 1px; background-size: 200% 200%; animation: gradientMove 2s linear infinite alternate, clockGlow 1.5s ease-in-out infinite alternate;"></span>
@@ -49,7 +49,6 @@ setInterval(updateClock, 1000);
 updateClock();
 </script>
 
-<!-- Add top padding to main content -->
 <style>
   body, .min-h-screen, main, .about-main, .signup-container, .contact-hero, .projects-section {
     padding-top: 56px !important;
@@ -284,13 +283,11 @@ updateClock();
 <script>
 console.log('CursorHearts loaded');
 document.addEventListener('DOMContentLoaded', function() {
-  // Authentication state management
   let isLoggedIn = false;
   const signupBtn = document.getElementById('signupBtn');
   const loginBtn = document.getElementById('loginBtn');
   const logoutBtn = document.getElementById('logoutBtn');
 
-  // Check if user is already logged in
   function checkAuthStatus() {
     const user = localStorage.getItem('currentUser');
     if (user) {
@@ -299,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Update button visibility based on auth status
   function updateAuthButtons() {
     if (isLoggedIn) {
       signupBtn.style.display = 'none';
@@ -312,12 +308,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Sign up button functionality
   signupBtn.addEventListener('click', () => {
     window.location.href = 'signup.html';
   });
 
-  // Modal functionality
   const logoutBtnElement = document.getElementById('logoutBtn');
   const loginModal = document.getElementById('loginModal');
   const signupModal = document.getElementById('signupModal');
@@ -330,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const showSignup = document.getElementById('showSignup');
   const showLogin = document.getElementById('showLogin');
 
-  // Login modal
   loginBtn.onclick = () => { loginModal.style.display = 'block'; }
   closeLogin.onclick = () => { loginModal.style.display = 'none'; }
   showSignup.onclick = (e) => { 
@@ -339,7 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
     signupModal.style.display = 'block';
   }
 
-  // Signup modal
   closeSignup.onclick = () => { signupModal.style.display = 'none'; }
   showLogin.onclick = (e) => { 
     e.preventDefault();
@@ -347,7 +339,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loginModal.style.display = 'block';
   }
 
-  // Logout modal
   logoutBtnElement.onclick = () => { logoutModal.style.display = 'block'; }
   closelogout.onclick = () => { logoutModal.style.display = 'none'; }
   confirmLogout.onclick = () => { 
@@ -359,13 +350,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   cancelLogout.onclick = () => { logoutModal.style.display = 'none'; }
 
-  // Login form submission
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = e.target.querySelector('input[type="email"]').value;
     const password = e.target.querySelector('input[type="password"]').value;
     
-    // Simple validation - in real app, you'd check against a database
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.email === email && u.password === password);
     
@@ -381,7 +370,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Close modals when clicking outside
   window.addEventListener('click', function(event) {
     if (event.target == loginModal) {
       loginModal.style.display = 'none';
@@ -394,11 +382,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Check auth status on page load
   checkAuthStatus();
   updateAuthButtons();
 
-  // Add to cart functionality
   const buyBtns = document.querySelectorAll('.buy-btn');
   const cartCount = document.querySelector('.cart-count');
   let cartItems = 0;
@@ -416,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Wishlist functionality
   const wishlistBtns = document.querySelectorAll('.wishlist-btn');
   wishlistBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -433,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Newsletter form
   const newsletterForm = document.querySelector('.newsletter-form');
   newsletterForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -442,7 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
     newsletterForm.reset();
   });
 
-  // Smooth scroll for navigation
   function smoothScrollTo(selector) {
     const el = document.querySelector(selector);
     if (el) {
@@ -456,7 +439,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (href && href.startsWith('#')) {
         e.preventDefault();
         smoothScrollTo(href);
-        // Animate section if it's products or contact
         if (href === '#products' || href === '#contact') {
           setTimeout(() => {
             const section = document.querySelector(href);
@@ -491,7 +473,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
-  // Animate sections on scroll
   function animateSections() {
     document.querySelectorAll('section').forEach(section => {
       const rect = section.getBoundingClientRect();
@@ -510,7 +491,6 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', animateSections);
   animateSections();
 
-  // Product data for modal
   const products = [
     {
       id: 1,
@@ -556,7 +536,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
-  // Modal logic
   function showProductModal(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
@@ -574,7 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Cart logic
   function addToCart(product, checkoutNow) {
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const existing = cart.find(item => item.id === product.id);
@@ -594,7 +572,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateClocks() {
     const now = new Date();
-    // Manila (UTC+8)
     const manila = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
 
     function format12h(date) {
@@ -629,7 +606,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(updateMarqueeClock, 1000);
   updateMarqueeClock();
 
-  // Update navigation links in the nav bar to use index.html and about.html
   document.querySelectorAll('.main-nav a').forEach(function(link) {
     if (link.textContent.trim() === 'Home') link.setAttribute('href', 'index.html');
     if (link.textContent.trim() === 'Products') link.setAttribute('href', 'index.html#products');

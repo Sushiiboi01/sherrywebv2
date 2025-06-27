@@ -10,9 +10,9 @@
 <body>
 
 <!-- Compact Marquee and Clock Section -->
-<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: linear-gradient(90deg, #c073b1 0%, #a855f7 100%); backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
+<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 54px; background: #c073b1; backdrop-filter: blur(10px); box-shadow: 0 2px 24px rgba(192, 115, 177, 0.13); border-bottom: 2px solid #fff0; display: flex; align-items: center;">
   <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 18px;">
-    <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: #4c1d95; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
+    <marquee behavior="scroll" direction="left" scrollamount="4" aria-label="Shop Announcements" style="background-color: transparent; color: white; font-size: 15px; font-weight: 600; width: calc(100% - 140px); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 44px; height: 44px;">Welcome to Shey's Shop! Your destination for premium fashion and lifestyle products. Free shipping on orders over $50!</marquee>
     <div style="display: flex; align-items: center; gap: 8px; height: 44px;">
       <span style="font-size: 18px; color: #7c3aed; font-weight: 700;">🕐</span>
       <span id="marquee-clock" aria-label="Current Manila Time" title="" style="font-size: 17px; font-weight: 700; color: #fff; font-family: 'Courier New', monospace; background: linear-gradient(45deg, #fff, #c073b1, #a855f7, #ffd1e7); -webkit-background-clip: text; -webkit-text-fill-color: white; background-clip: text; padding: 3px 12px; border-radius: 7px; border: 1.5px solid #ede9fe; line-height: 1; display: inline-block; box-shadow: 0 1px 12px #ede9fe; letter-spacing: 1px; background-size: 200% 200%; animation: gradientMove 2s linear infinite alternate, clockGlow 1.5s ease-in-out infinite alternate;"></span>
@@ -20,7 +20,6 @@
   </div>
 </div>
 
-<!-- Add top padding to main content -->
 <style>
   body, .signup-container, main {
     padding-top: 56px !important;
@@ -59,7 +58,7 @@
       margin-top: 0;
     }
     .main-nav .nav-link {
-      color: #fff;
+      color: #c073b1;
       text-decoration: none;
       font-size: 1.1em;
       font-weight: 500;
@@ -69,12 +68,12 @@
       transition: color 0.2s, border-bottom 0.2s;
     }
     .main-nav .nav-link:hover {
-      color: #ffe082;
-      border-bottom: 2.5px solid #ffe082;
+      color: #c073b1;
+      border-bottom: 2.5px solid #c073b1;
     }
     .main-nav .nav-link.active {
-      color: #ffe082;
-      border-bottom: 2.5px solid #ffe082;
+      color: #c073b1;
+      border-bottom: 2.5px solid #c073b1;
       font-weight: 700;
     }
     @media (max-width: 700px) {
@@ -188,13 +187,12 @@
     </form>
     
     <div class="signup-footer">
-      <p>Already have an account? <a href="Shery-Website.html" class="login-link">Login here</a></p>
+      <p>Already have an account? <a href="index.html" class="login-link">Login here</a></p>
     </div>
   </div>
 </div>
 
 <script>
-  // Clock functionality
   function updateClock() {
     const now = new Date();
     let hours = now.getHours();
@@ -221,14 +219,179 @@
     }
   }
 
-  // Start the clock and update every second
-  updateClock(); // initial call
+  updateClock();
   setInterval(updateClock, 1000);
 </script>
 
 <script>
-  // Authentication and menu logic from Shery-Website.html
-  // (copy the full script block from Shery-Website.html, lines 251-629, and replace any old clock or nav scripts)
+document.addEventListener('DOMContentLoaded', function() {
+  let isLoggedIn = false;
+  const signupBtn = document.getElementById('signupBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  function checkAuthStatus() {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      isLoggedIn = true;
+      updateAuthButtons();
+    }
+  }
+
+  function updateAuthButtons() {
+    if (isLoggedIn) {
+      signupBtn.style.display = 'none';
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      signupBtn.style.display = 'inline-block';
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    }
+  }
+
+  signupBtn.addEventListener('click', () => {
+    signupModal.style.display = 'block';
+  });
+
+  const logoutBtnElement = document.getElementById('logoutBtn');
+  const loginModal = document.getElementById('loginModal');
+  const signupModal = document.getElementById('signupModal');
+  const logoutModal = document.getElementById('logoutModal');
+  const closeLogin = document.getElementById('closeLogin');
+  const closeSignup = document.getElementById('closeSignup');
+  const closelogout = document.getElementById('closelogout');
+  const confirmLogout = document.getElementById('confirmLogout');
+  const cancelLogout = document.getElementById('cancelLogout');
+  const showSignup = document.getElementById('showSignup');
+  const showLogin = document.getElementById('showLogin');
+
+  loginBtn.onclick = () => { loginModal.style.display = 'block'; }
+  closeLogin.onclick = () => { loginModal.style.display = 'none'; }
+  showSignup.onclick = (e) => { 
+    e.preventDefault();
+    loginModal.style.display = 'none';
+    signupModal.style.display = 'block';
+  }
+
+  closeSignup.onclick = () => { signupModal.style.display = 'none'; }
+  showLogin.onclick = (e) => { 
+    e.preventDefault();
+    signupModal.style.display = 'none';
+    loginModal.style.display = 'block';
+  }
+
+  logoutBtnElement.onclick = () => { logoutModal.style.display = 'block'; }
+  closelogout.onclick = () => { logoutModal.style.display = 'none'; }
+  confirmLogout.onclick = () => { 
+    logoutModal.style.display = 'none';
+    isLoggedIn = false;
+    localStorage.removeItem('currentUser');
+    updateAuthButtons();
+    alert('Successfully logged out!');
+  }
+  cancelLogout.onclick = () => { logoutModal.style.display = 'none'; }
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+      isLoggedIn = true;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      updateAuthButtons();
+      loginModal.style.display = 'none';
+      e.target.reset();
+      alert('Successfully logged in!');
+    } else {
+      alert('Invalid email or password. Please try again.');
+    }
+  });
+
+  document.getElementById('signupFormModal').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fullName = e.target.querySelector('input[type="text"]').value;
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelectorAll('input[type="password"]')[0].value;
+    const confirmPassword = e.target.querySelectorAll('input[type="password"]')[1].value;
+    
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const existingUser = users.find(u => u.email === email);
+    
+    if (existingUser) {
+      alert('User with this email already exists!');
+      return;
+    }
+    
+    const newUser = { fullName, email, password };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    signupModal.style.display = 'none';
+    e.target.reset();
+    alert('Account created successfully! You can now login.');
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fullName = e.target.querySelector('#fullName').value;
+    const email = e.target.querySelector('#email').value;
+    const phone = e.target.querySelector('#phone').value;
+    const password = e.target.querySelector('#password').value;
+    const confirmPassword = e.target.querySelector('#confirmPassword').value;
+    const terms = e.target.querySelector('#terms').checked;
+    const newsletter = e.target.querySelector('#newsletter').checked;
+    
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    
+    if (!terms) {
+      alert('Please agree to the Terms & Conditions');
+      return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const existingUser = users.find(u => u.email === email);
+    
+    if (existingUser) {
+      alert('User with this email already exists!');
+      return;
+    }
+    
+    const newUser = { fullName, email, phone, password, newsletter };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    e.target.reset();
+    alert('Account created successfully! You can now login.');
+  });
+
+  window.addEventListener('click', function(event) {
+    if (event.target == loginModal) {
+      loginModal.style.display = 'none';
+    }
+    if (event.target == signupModal) {
+      signupModal.style.display = 'none';
+    }
+    if (event.target == logoutModal) {
+      logoutModal.style.display = 'none';
+    }
+  });
+
+  checkAuthStatus();
+  updateAuthButtons();
+});
 </script>
 
 <!-- Cursor Hearts Effect JavaScript -->
